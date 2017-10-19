@@ -12,11 +12,18 @@ project.targets.each do |target|
 	if verbose
 		puts "Checking #{target} ... "
 	end
-#	files = target.source_build_phase.files.to_a.map do |pbx_build_file|
-	files = target.resources_build_phase.files.to_a.map do |pbx_build_file|
+
+	if file_to_search.end_with?(".m", ".mm", ".swift") 
+		files_to_lookup = target.source_build_phase.files
+	elsif file_to_search.end_with?(".xcassets", ".xib", ".png") 
+		files_to_lookup = target.resources_build_phase.files
+	else 
+		return
+	end
+
+	files = files_to_lookup.to_a.map do |pbx_build_file|
 		pbx_build_file.file_ref.real_path.to_s
-	end.select do |path|
-	  # path.end_with?(".m", ".mm", ".swift")
+	end.select do |path| 
 	  path.end_with?(file_to_search)
 	end.select do |path|
 	  File.exists?(path)
