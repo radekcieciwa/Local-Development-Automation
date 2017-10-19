@@ -41,7 +41,11 @@ EOF
 # "tool-name:tool-path"
 # tool-name - your tool name, can be anything
 # tool-path - absolute path to tooling that will be linked in /usr/local/bin
-TOOLS_DEFINITION=( "qsync:`pwd`/qsync.sh" "git_move:`pwd`/git_move_tool.sh" "prepare_for_git_move:`pwd`/prepare_for_git_move.sh")
+TOOLS_DEFINITION=( "qsync:`pwd`/qsync.sh" 
+	"git_move:`pwd`/git_move_tool.sh" 
+	"prepare_for_git_move:`pwd`/prepare_for_git_move.sh"
+	"check_targets:`pwd`/targets_for_file.rb"
+	)
 
 if [ "$1" = "--help" -o "$1" = "-help" -o "$1" = "-h" ]; then
 	_print_help
